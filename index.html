@@ -1,17 +1,108 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Pokemon GPT Data</title>
-  </head>
-  <body>
-    <h1>Pokemon GPT Data</h1>
-    <ul>
-      <li><a href="speciesData.json">speciesData.json</a></li>
-      <li><a href="moves.json">moves.json</a></li>
-      <li><a href="abilities.json">abilities.json</a></li>
-      <li><a href="Trainer-battles.json">Trainer-battles.json</a></li>
-      <li><a href="Tm-locatoins.json">Tm-locatoins.json</a></li>
-    </ul>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pokémon GPT Data Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f7f7fa;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 0.25rem;
+    }
+
+    select {
+      width: 100%;
+      max-width: 400px;
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pokémon GPT Builder</h1>
+    <p>Search legal stats and moves by species</p>
+  </header>
+
+  <main class="card">
+    <select id="pokemon-select">
+      <option disabled selected>Choose a Pokémon</option>
+    </select>
+
+    <div id="output"></div>
+  </main>
+
+  <script>
+    async function loadSpeciesData() {
+      const res = await fetch('speciesData.json');
+      const speciesList = await res.json();
+
+      const dropdown = document.getElementById('pokemon-select');
+      speciesList.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p.name;
+        option.textContent = p.name;
+        dropdown.appendChild(option);
+      });
+
+      dropdown.addEventListener('change', () => {
+        const chosen = speciesList.find(p => p.name === dropdown.value);
+        if (chosen) renderPokemon(chosen);
+      });
+    }
+
+    function renderPokemon(data) {
+      const output = document.getElementById('output');
+      output.innerHTML = `
+        <h2>${data.name}</h2>
+        <h3>Base Stats</h3>
+        <ul>
+          ${Object.entries(data.baseStats || {}).map(([key, val]) => `<li><strong>${key}</strong>: ${val}</li>`).join('')}
+        </ul>
+
+        <h3>Level-Up Moves</h3>
+        <ul>
+          ${data.learnset?.filter(m => m.method === 'level').map(m => `<li>Lv. ${m.level}: ${m.move}</li>`).join('') || '<li>No level-up moves</li>'}
+        </ul>
+      `;
+    }
+
+    loadSpeciesData();
+  </script>
+</body>
 </html>
