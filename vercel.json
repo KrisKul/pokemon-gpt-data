@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/info.js": {
+      "includeFiles": "data/*"
+    },
+    "api/trainers.js": {
+      "includeFiles": "data/Trainer-battles.json"
+    }
+  }
+}

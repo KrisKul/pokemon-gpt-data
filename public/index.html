@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Pokédex (GPT-Facing)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="prose max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold">Pokémon GPT Data API</h1>
+    <p>This page is for GPT agents to discover available API endpoints and data usage patterns.</p>
+
+    <h2>🧠 GPT Usage Hints</h2>
+    <pre>
+GET /api/species?name={species}         → Get full data for one Pokémon
+GET /api/moves?name={move}              → Get move metadata
+GET /api/tms                            → Get list of TM moves
+GET /api/trainers?name={trainer}        → Get trainer data
+GET /api/legality?species={species}&level=30&badges=4
+                                     → Return legal moves at level/badge
+GET /api/build?species={species}&level=30&badges=4
+                                     → Return best moveset & stats
+GET /api/recommend                    → POST user team vs trainer analysis
+GET /api/team-predict?trainer={name}&level=30&badges=4
+                                     → Recommend best team vs trainer
+    </pre>
+
+    <h2>📚 Files Used</h2>
+    <ul>
+      <li>speciesData.json</li>
+      <li>moves.json</li>
+      <li>abilities.json</li>
+      <li>tm-locations.json</li>
+      <li>Trainer-battles.json</li>
+    </ul>
+
+    <h2>📌 Notes for GPT</h2>
+    <ul>
+      <li>Moves are stored as "MOVE_XYZ" internally</li>
+      <li>Use displayName from moves.json for friendly output</li>
+      <li>Badge count gates TM/tutor legality (≥2 and ≥6)</li>
+      <li>Best builds are sorted by move power</li>
+    </ul>
+  </div>
+</body>
+</html>

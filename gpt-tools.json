@@ -1,0 +1,69 @@
+// 📦 FILE: /gpt-tools.json
+[
+  {
+    "name": "autocompleteNames",
+    "description": "Get autocomplete suggestions for Pokémon, moves, or TMs",
+    "endpoint": "/api/autocomplete",
+    "params": ["input"]
+  },
+  {
+    "name": "searchDatabase",
+    "description": "Search Pokémon, moves, or TMs with fuzzy matching",
+    "endpoint": "/api/search",
+    "params": ["term", "type"]
+  },
+  {
+    "name": "getSpeciesInfo",
+    "description": "Fetch Pokémon species data by name",
+    "endpoint": "/api/species",
+    "params": ["name"]
+  },
+  {
+    "name": "getTrainerTeam",
+    "description": "Fetch full team data for a specific trainer",
+    "endpoint": "/api/trainers",
+    "params": ["name"]
+  },
+  {
+    "name": "getMoveInfo",
+    "description": "Fetch detailed move data",
+    "endpoint": "/api/move",
+    "params": ["name"]
+  },
+  {
+    "name": "getTMs",
+    "description": "Get all TMs available for a badge level, or fetch one by name",
+    "endpoint": "/api/tms",
+    "params": ["name", "badge"]
+  },
+  {
+    "name": "buildPokemon",
+    "description": "Build the best moveset for a Pokémon given level and badges",
+    "endpoint": "/api/build",
+    "params": ["input", "level", "badges"]
+  },
+  {
+    "name": "checkLegality",
+    "description": "Check if a Pokémon is legal at given level and badges",
+    "endpoint": "/api/legality",
+    "params": ["input", "level", "badges"]
+  },
+  {
+    "name": "recommendPokemon",
+    "description": "Recommend Pokémon available at a level and badge count",
+    "endpoint": "/api/recommend",
+    "params": ["level", "badges"]
+  },
+  {
+    "name": "predictTeam",
+    "description": "Build best counter team vs a trainer",
+    "endpoint": "/api/predict",
+    "params": ["trainer", "level", "badges"]
+  },
+  {
+    "name": "getDocs",
+    "description": "View documentation for the API",
+    "endpoint": "/api/docs",
+    "params": []
+  }
+]
