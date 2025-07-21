@@ -1,6 +1,10 @@
-// 🛠️ FILE: /api/docs.js
+// 🔧 FILE: /api/docs.js
 
 import { readJson } from '@/lib/readJson';
+import speciesSchema from '@/lib/schemas/speciesSchema';
+import moveSchema from '@/lib/schemas/moveSchema';
+import tmSchema from '@/lib/schemas/tmSchema';
+import trainerSchema from '@/lib/schemas/trainerSchema';
 
 export default async function handler(req, res) {
   const { action } = req.query;
@@ -12,9 +16,14 @@ export default async function handler(req, res) {
       const tms = await readJson('tm-locations.json');
       const trainers = await readJson('Trainer-battles.json');
 
+      speciesSchema.parse(species);
+      moveSchema.parse(moves);
+      tmSchema.parse(tms);
+      trainerSchema.parse(trainers);
+
       return res.status(200).json({
         ok: true,
-        summary: 'All JSON files validated successfully.',
+        summary: 'All JSON files validated successfully against schemas.',
         files: ['speciesData.json', 'moves.json', 'tm-locations.json', 'Trainer-battles.json']
       });
     } catch (err) {
