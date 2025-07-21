@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/validate.js": {
+    "api/docs.js": {
       "includeFiles": "data/*"
     },
     "api/species.js": {
