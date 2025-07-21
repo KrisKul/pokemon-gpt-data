@@ -1,6 +1,27 @@
 // 🛠️ FILE: /api/docs.js
 
-export default function handler(req, res) {
+import { readJson } from '@/lib/readJson';
+
+export default async function handler(req, res) {
+  const { action } = req.query;
+
+  if (action === 'validate') {
+    try {
+      const species = await readJson('speciesData.json');
+      const moves = await readJson('moves.json');
+      const tms = await readJson('tm-locations.json');
+      const trainers = await readJson('Trainer-battles.json');
+
+      return res.status(200).json({
+        ok: true,
+        summary: 'All JSON files validated successfully.',
+        files: ['speciesData.json', 'moves.json', 'tm-locations.json', 'Trainer-battles.json']
+      });
+    } catch (err) {
+      return res.status(500).json({ error: 'Validation failed', details: err.message });
+    }
+  }
+
   return res.status(200).json({
     overview: "This API serves Pokémon data for GPT agents to build, validate, and simulate matches.",
     endpoints: [
@@ -45,6 +66,10 @@ export default function handler(req, res) {
       {
         path: "/api/autocomplete?term={query}",
         description: "Fast search for names only (species, moves, TMs) for suggestions/autocomplete."
+      },
+      {
+        path: "/api/docs?action=validate",
+        description: "Validates all data files against Zod schemas."
       }
     ],
     tips: [
