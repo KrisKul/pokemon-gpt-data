@@ -1,10 +1,19 @@
 {
   "functions": {
-    "api/info.js": {
+    "api/validate.js": {
       "includeFiles": "data/*"
+    },
+    "api/species.js": {
+      "includeFiles": "data/speciesData.json"
     },
     "api/trainers.js": {
       "includeFiles": "data/Trainer-battles.json"
+    },
+    "api/tms.js": {
+      "includeFiles": "data/tm-locations.json"
+    },
+    "api/move.js": {
+      "includeFiles": "data/moves.json"
     }
   }
 }
